@@ -1,4 +1,4 @@
-var movies = [
+var allmovies = [
   {
     "title": "Patton Oswalt: Annihilation",
     "year": 2017,
@@ -5056,23 +5056,7 @@ var movies = [
     "youtubePoster": "http://i3.ytimg.com/vi/plSyak2D_dM/hqdefault.jpg",
     "imdbPage": "https://www.imdb.com/title/tt4122118"
   },
-  {
-    "title": "1 Buck",
-    "year": 2017,
-    "categories": [
-      "Drama",
-      "Thriller"
-    ],
-    "summary": "Shifting from one pocket to another, from one man's drama to another, a lowly dollar bill, 'one buck' takes us on an odyssey through the heart of a forgotten town in Louisiana.",
-    "imdbId": "tt4685428",
-    "imdbRating": 6,
-    "runtime": 90,
-    "language": "English",
-    "youtubeId": "PyJhVOZVqRQ",
-    "youtubePosterMax": "http://i3.ytimg.com/vi/PyJhVOZVqRQ/maxresdefault.jpg",
-    "youtubePoster": "http://i3.ytimg.com/vi/PyJhVOZVqRQ/hqdefault.jpg",
-    "imdbPage": "https://www.imdb.com/title/tt4685428"
-  },
+
   {
     "title": "Gook",
     "year": 2017,

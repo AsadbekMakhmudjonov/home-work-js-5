@@ -1,56 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JS lesson 9</title>
   <link rel="stylesheet" href="css/bootstrap5.min.css">
-  <link rel="stylesheet" href="/css/styles.css">
   <style>
     .movie__img {
       object-fit: cover;
     }
+
+    .movie__bookmark{
+      background-color: rgb(161, 172, 172);
+      border-radius: 5px;
+      padding: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .movie__bookmark.movie__bookmark--checked{
+      background-color: #ffc107;
+    }
   </style>
 </head>
-<body style="background-color: #16151A;">
+
+<body>
 
   <div class="movies container-xl">
-    <header class="py-4 mb-3" style="border-bottom: 3px solid #6E7F80;">
-      <h1 class="mb-0 display-6 text-center fw-bold bg-danger text-white py-2">Movies</h1>
+    <header class="py-3 mb-3">
+      <h1 class="mb-0 display-6 text-center">Movies</h1>
     </header>
 
     <section>
       <h2 class="visually-hidden">Movies list</h2>
 
-      <form class="row mb-5 js-movie-search-form justify-content-between" action="https://echo.htmlacademy.ru" method="GET">
-        <div class="col-md-6">
-          <input class="form-control js-movie-search-input" type="search" name="title" placeholder="Movie title" aria-label="Movie title">
+      <form class="row mb-3 js-movie-search-form" action="https://echo.htmlacademy.ru" method="GET">
+        <div class="col-md-2">
+          <input class="form-control js-movie-search-input" type="search" name="title" placeholder="Movie title"
+            aria-label="Movie title">
         </div>
-        <div class="col-md-6">
+
+        <div class="col-md-2">
+          <button class="js-movie-watch-list  btn btn-primary d-block" data-bs-toggle="modal"
+            data-bs-target="#watchListModalId">Watch list
+            <img src="img/watch-list.svg" alt="watch list">
+          </button>
+        </div>
+
+        <div class="col-md-1">
           <select class="form-control" name="genre" aria-label="Genre">
             <option value="All">All</option>
           </select>
         </div>
-
-        <div class="col-md-6 d-flex mt-3">
-          <div class="input-group me-2">
-            <input type="number" class="form-control js-movie-search-start-year" placeholder="start year" >
-          </div>
-          <div class="input-group me-2">
-            <input type="number" class="form-control js-movie-search-end-year" placeholder="end year" >
-          </div>
-          <div class="input-group">
-            <input type="number" class="form-control js-movie-search-rating" placeholder="rating">
-          </div>
+        <div class="col-md-1">
+          <input class="form-control js-start-year-input" type="number" name="min_year" aria-label="Start year"
+            placeholder="Start year">
+        </div>
+        <div class="col-md-2">
+          <input class="form-control js-end-year-input" type="number" name="max_year" aria-label="End year"
+            placeholder="End year">
+        </div>
+        <div class="col-md-2">
+          <select class="form-control js-sort-select" name="sort" aria-label="Sorting">
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+            <option value="rating_asc">Rating low-high</option>
+            <option value="rating_desc">Rating high-low</option>
+            <option value="year_asc">Year (old-new)</option>
+            <option value="year_desc">Year (new-old)</option>
+          </select>
         </div>
 
-        <div class="col-md-6 d-flex mt-3">
-          <button class="btn btn-danger me-2 js-search-by-sort-year">sort by year</button>
-          <button class="btn btn-primary" type="submit">find</button>
+        <div class="col-md-1">
+          <button class="btn btn-primary" type="submit">Search</button>
         </div>
-
-
       </form>
 
       <div class="movies__list row">
@@ -90,12 +115,17 @@
           <div class="row">
             <div class="col-lg-5 mb-3 mb-lg-0">
               <div class="ratio ratio-16x9">
-                <iframe class="movie-info-modal__iframe d-block w-100 border-0 rounded" src="https://www.youtube-nocookie.com/embed/j51ae5KM7N0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe class="movie-info-modal__iframe d-block w-100 border-0 rounded"
+                  src="https://www.youtube-nocookie.com/embed/j51ae5KM7N0" title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
               </div>
             </div>
             <div class="col-lg-7">
               <p class="movie-info-modal__categories">Thriller, Action, Comedy</p>
-              <p class="movie-info-modal__summary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil itaque impedit doloribus! Aperiam vero nostrum quaerat quos magnam molestiae hic officia eveniet similique eligendi. Voluptate obcaecati deserunt veritatis porro laboriosam?</p>
+              <p class="movie-info-modal__summary">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil itaque
+                impedit doloribus! Aperiam vero nostrum quaerat quos magnam molestiae hic officia eveniet similique
+                eligendi. Voluptate obcaecati deserunt veritatis porro laboriosam?</p>
               <div>
                 <a class="movie-info-modal__imdb-link" href="#" target="_blank">Show on IMDb</a>
               </div>
@@ -105,16 +135,31 @@
       </div>
     </div>
   </div>
+<!-- MODAL OF WATCHLIST -->
+<div class="modal fade" id="watchListModalId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
+      <div class="modal-body">
+        <p class="h4 text-center">Watch list</p>
 
-  <!-- TEMPLATES -->
+        <div class="bookmarks">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <!-- TEMPLATE MOVIE -->
   <template id="movies-item-template">
     <div class="movies__item col-sm-6 col-md-4 mb-4">
-      <div class="movie card h-100 bg-light">
+      <div class="movie card h-100">
         <img class="movie__img card-img-top" src="https://picsum.photos/300/170" alt="rasm" width="300" height="170">
         <div class="card-body d-flex flex-column">
-          <h3 class="movie__title h5 mb-1 card-title text-truncate">Movie title</h3>
-          <div class="d-flex flex-wrap justify-content-between mb-3 small">
+          <h3 class="movie__title h5 mb-0 card-title">Movie title</h3>
+          <div class="d-flex flex-wrap justify-content-between mb-2 small">
             <span class="d-flex align-items-center me-2">
               <img class="me-1" src="img/icon-star.svg" alt="" width="16" height="16">
               <span class="movie__rating">7.7</span>
@@ -127,16 +172,38 @@
               <img class="me-1" src="img/icon-clock.svg" alt="" width="16" height="16">
               <span class="movie__duration">1 hr 20 min</span>
             </span>
+            <button
+              class="d-flex align-items-center movie__bookmark js-movie-bookmark-add
+              js-movie-bookmark-btn">
+              <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16" fill="#000">
+                <path d="M0 0h24v24H0V0z" fill="none" />
+                <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z" /></svg>
+              bookmark
+            </button>
           </div>
-          <p class="movie__categories card-text text-secondary">Thriller, Comedy, Action</p>
-          <button class="d-block w-100 mt-auto btn btn-danger btn-sm text-white js-more-info-button" data-bs-toggle="modal" data-bs-target="#more-info-modal">More info</button>
+          <p class="movie__categories card-text">Thriller, Comedy, Action</p>
+          <button class="d-block w-100 mt-auto btn btn-info btn-sm text-white js-more-info-button"
+            data-bs-toggle="modal" data-bs-target="#more-info-modal">More info</button>
+
         </div>
       </div>
     </div>
   </template>
 
+  <!-- BOOKMARK TEMPLATE -->
+  <template id="bookmarks-template">
+    <div class="bookmarks__item mb-2 item-bookmarks d-flex justify-content-between align-items-center">
+      <div><img class="item-bookmarks__img" src="" alt="" width="40" height="40"></div>
+      <p class="item-bookmarks__name m-0 text-truncate me-2">Movie title</p>
+      <button class="item-bookmarks__cancel btn btn-danger">x</button>
+    </div>
+  </template>
+
   <script src="js/bootstrap5.bundle.min.js"></script>
   <script src="js/normalized-movies.js"></script>
+
   <script src="js/main.js"></script>
+
 </body>
+
 </html>
